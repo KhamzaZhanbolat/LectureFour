@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>First Spring Project</title>
+    <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap.min.css}">
+
+    <!-- Подключение библиотеки Bootstrap Icons -->
+    <link rel="stylesheet" th:href="@{'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css'}">
+</head>
+<body>
+<!-- форма для ввода информации о новой машины -->
+<form method="post" th:action="@{'/addcar'}" class="card px-3 py-3 ms-4 mt-4 w-50">
+    <div class="form-floating mb-3">
+        <input type="text" name="car_name" class="form-control" id="car_name" placeholder="car_name">
+        <label for="car_name">Car Name:</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="number" step="0.01" name="engine_volume" class="form-control" id="engine_volume" placeholder="engine_volume">
+        <label for="engine_volume">Engine Volume:</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="number" name="max_speed" class="form-control" id="max_speed" placeholder="max_speed">
+        <label for="max_speed">Max Speed:</label>
+    </div>
+    <button type="submit" class="btn btn-success">Add Car</button>
+</form>
+
+<ul class="ms-4 mt-4 list-group w-50">
+    <li class="list-group-item d-flex" th:each="car : ${mashinalar}" th:style="${car.engineVolume>=2.5? 'color:green;' : 'color:red;'}">
+                    <span class="pt-2">
+                        The car <span th:text = "${car.name}"></span>
+                        with engine volume <span th:text = "${car.engineVolume}"></span> liters
+                        and with max speed <span th:text = "${car.maxSpeed}"></span> km/h
+                    </span>
+
+        <!-- форма удаления машины -->
+        <form class="ms-auto me-0" method="post" th:action="@{'/delete_car/' + ${car.id}}">
+            <!-- красная кнопка удаления машины -->
+            <button type="submit" class="btn btn-danger">
+                <i class="bi-trash"></i>
+            </button>
+        </form>
+    </li>
+</ul>
+
+<script type="text/javascript" th:src="@{js/bootstrap.min.js}"></script>
+</body>
+</html>

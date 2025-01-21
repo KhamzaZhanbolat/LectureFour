@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cities</title>
+    <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form id="changeLanguageForm" method="post" th:action="@{'/setlanguage'}" class="my-3" style="width: 13%">
+                <div class="form-floating me-3">
+                    <select class="form-select" name="language" id="floatingSelect" aria-label="Floating label select example" onchange="document.getElementById('changeLanguageForm').submit()">
+                        <option value="KAZ" th:selected="${language.equals('KAZ')}" th:text="${language.equals('KAZ') ? 'Қазақ' : (language.equals('RUS') ? 'Казахский' : (language.equals('ENG') ? 'Kazakh' : 'null'))}"></option>
+                        <option value="RUS" th:selected="${language.equals('RUS')}" th:text="${language.equals('KAZ') ? 'Орыс' : (language.equals('RUS') ? 'Русский' : (language.equals('ENG') ? 'Russian' : 'null'))}"></option>
+                        <option value="ENG" th:selected="${language.equals('ENG')}" th:text="${language.equals('KAZ') ? 'Ағылшын' : (language.equals('RUS') ? 'Английский' : (language.equals('ENG') ? 'English' : 'null'))}"></option>
+                    </select>
+                    <label for="floatingSelect">
+                        <span th:if="${language.equals('KAZ')}">Тілді таңдаңыз</span>
+                        <span th:if="${language.equals('RUS')}">Выберите язык</span>
+                        <span th:if="${language.equals('ENG')}">Choose language</span>
+                    </label>
+                </div>
+            </form>
+            <h4 th:each = "qala : ${qalalar}" th:text="${qala}"></h4>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{js/bootstrap.min.js}"></script>
+</body>
+</html>
